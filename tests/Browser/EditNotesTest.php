@@ -15,20 +15,20 @@ class EditNotesTest extends DuskTestCase
     public function testEditNotes(): void
     {
         $this->browse(callback: function (Browser $browser): void { 
-            $browser->visit(url: '/login') //Mengarahkan ke URL /
-                    ->assertSee(text: 'Email') //Memastikan bahwa teks yang diberikan ada di halaman
-                    ->type(field: 'email', value: 'admin@gmail.com')
-                    ->type(field: 'password', value: '123')
-                    ->press(button: 'LOG IN') //Menekan button
-                    ->assertPathIs(path: '/dashboard')
-                    ->clickLink('Notes') //Menekan button
-                    ->assertPathIs(path: '/notes')
-                    ->click('@edit-2')
-                    ->assertPathIs(path: '/edit-note-page/2')
-                    ->type(field: 'title', value: 'Modul 3-PPL') //Elemen Input
-                    ->type(field: 'description', value: 'selesai praktikum')
+            $browser->visit(url: '/login') //Mengarahkan ke URL /login
+                    ->assertSee(text: 'Email') //Memastikan bahwa teks 'email' ada di halaman
+                    ->type(field: 'email', value: 'admin@gmail.com') // Isi email
+                    ->type(field: 'password', value: '123') // Isi password
+                    ->press(button: 'LOG IN') // Klik tombol login
+                    ->assertPathIs(path: '/dashboard') // Pastikan masuk ke dashboard
+                    ->clickLink('Notes') //Menekan button notes
+                    ->assertPathIs(path: '/notes') //Pastikan arahnya ke halaman  notes
+                    ->click('@edit-2') //memilih elemen edit
+                    ->assertPathIs(path: '/edit-note-page/2') //diarahkan ke halaman sesuai path
+                    ->type(field: 'title', value: 'Modul 3-PPL') //Elemen Input title
+                    ->type(field: 'description', value: 'selesai praktikum') //input descritpion
                     ->press(button: 'UPDATE') //Menekan button
-                    ->assertPathIs(path: '/notes');
+                    ->assertPathIs(path: '/notes'); //kembali ke halaman notes
         });
     }
 }

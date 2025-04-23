@@ -22,7 +22,7 @@ class LoginTest extends DuskTestCase
                     ->type(field: 'email', value: 'admin@gmail.com') //Elemen Input
                     ->type(field: 'password', value: '123') //Elemen Input
                     ->press(button: 'LOG IN') //Menekan button
-                    ->assertPathIs(path: '/dashboard');
+                    ->assertPathIs(path: '/dashboard'); //Diarahkan ke dashboard
         });
     }
 }

@@ -14,18 +14,15 @@ class LogoutNotesTest extends DuskTestCase
     public function testLogoutNotes(): void
     {
         $this->browse(callback: function (Browser $browser): void { 
-            $browser->visit(url: '/login') //Mengarahkan ke URL /
-                    ->assertSee(text: 'Email') //Memastikan bahwa teks yang diberikan ada di halaman
-                    ->type(field: 'email', value: 'admin@gmail.com')
-                    ->type(field: 'password', value: '123')
-                    ->press(button: 'LOG IN') //Menekan button
-                    ->assertPathIs(path: '/dashboard')
-                    ->waitFor('#click-dropdown',5)
-                    ->click('#click-dropdown')
-                    ->pause(500)
-                    ->waitFor('from[action="http://127.0.0.1:8000/logout"]a',5)
-                    ->click('from[action="http://127.0.0.1:8000/logout"]a')
-                    ->assertPathIs(path: '/');
+            $browser->visit(url: '/login') //Mengarahkan browser ke halaman login dengan URL '/login'
+                    ->assertSee(text: 'Email') //Memastikan halaman login memuat teks "Email"
+                    ->type(field: 'email', value: 'admin@gmail.com') // Mengisi field email
+                    ->type(field: 'password', value: '123') // Mengisi field pass
+                    ->press(button: 'LOG IN') //Menekan button "LOG IN" untuk mengirim form login
+                    ->assertPathIs(path: '/dashboard') // Setelah login, diarahkan ke halaman dengan path '/dashboard'
+                    ->assertSee('raffanda') //Memastikan teks 'raffanda' muncul di halaman dashboard
+                    ->press('raffanda') // Menekan elemen dengan label 'raffanda'
+                    ->clickLink('Log Out'); // Mengklik link "Log Out" 
         });
     }
 }

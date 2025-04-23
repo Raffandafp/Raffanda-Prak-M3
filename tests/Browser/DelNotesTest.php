@@ -15,18 +15,17 @@ class DelNotesTest extends DuskTestCase
     public function testDelNotes(): void
     {
         $this->browse(callback: function (Browser $browser): void { 
-            $browser->visit(url: '/login') //Mengarahkan ke URL /
-                    ->assertSee(text: 'Email') //Memastikan bahwa teks yang diberikan ada di halaman
-                    ->type(field: 'email', value: 'admin@gmail.com')
-                    ->type(field: 'password', value: '123')
-                    ->press(button: 'LOG IN') //Menekan button
-                    ->assertPathIs(path: '/dashboard')
-                    ->waitFor('#click-dropdown',5)
-                    ->click('#click-dropdown')
-                    ->pause(500)
-                    ->waitFor('from[action="http://127.0.0.1:8000/logout"]a',5)
-                    ->click('from[action="http://127.0.0.1:8000/logout"]a')
-                    ->assertPathIs(path: '/');
+            $browser->visit(url: '/login') // Buka halaman login
+                    ->assertSee(text: 'Email') // Pastikan teks "Email" muncul
+                    ->type(field: 'email', value: 'admin@gmail.com') // Isi email
+                    ->type(field: 'password', value: '123') // Isi password
+                    ->press(button: 'LOG IN') // Klik tombol login
+                    ->assertPathIs(path: '/dashboard') // Pastikan masuk ke dashboard
+                    ->clickLink('Notes') // Klik menu "Notes"
+                    ->assertPathIs(path: '/notes') // Pastikan masuk ke halaman Notes
+                    ->click('#delete-1') // Klik tombol hapus untuk item dengan ID 1
+                    ->assertPathIs(path: '/notes'); // Tetap di halaman Notes setelah hapus
+
         });
     }
 }
